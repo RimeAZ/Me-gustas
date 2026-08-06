@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Un ramo para ti, JN 💗</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%B7%3C/text%3E%3C/svg%3E" />
+  <title>Un ramo de Snoopy para ti, JN 💗</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B6%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -40,14 +40,14 @@
       filter: drop-shadow(0 2px 12px rgba(255, 190, 90, 0.45));
     }
 
-    #t1 { top: 42%; font-size: clamp(1.7rem, 7vw, 2.6rem); }
-    #t2 { top: 9%;  font-size: clamp(1.9rem, 7.6vw, 2.9rem); line-height: 1.2; }
-    #t3 { top: 9%;  font-size: clamp(1.8rem, 7vw, 2.7rem); }
-    #t4 { top: 19%; font-size: clamp(1.3rem, 5vw, 1.9rem); font-family: 'Quicksand', sans-serif; font-weight: 600; color: #ffe9c9; opacity: 0; -webkit-text-fill-color: currentColor; background: none; filter: drop-shadow(0 1px 8px rgba(255,190,90,.35)); }
+    #t1 { top: 40%; font-size: clamp(1.7rem, 7vw, 2.6rem); }
+    #t2 { top: 8%;  font-size: clamp(1.9rem, 7.6vw, 2.9rem); line-height: 1.2; }
+    #t3 { top: 8%;  font-size: clamp(1.8rem, 7vw, 2.7rem); }
+    #t4 { top: 18%; font-size: clamp(1.3rem, 5vw, 1.9rem); font-family: 'Quicksand', sans-serif; font-weight: 600; color: #ffe9c9; opacity: 0; -webkit-text-fill-color: currentColor; background: none; filter: drop-shadow(0 1px 8px rgba(255,190,90,.35)); }
     .txt#t4.show { opacity: .95; }
 
     #sig {
-      top: 27%;
+      top: 26%;
       font-family: 'Great Vibes', cursive;
       font-size: clamp(3.4rem, 15vw, 5.6rem);
       letter-spacing: 4px;
@@ -91,7 +91,7 @@
   <canvas id="cv"></canvas>
 
   <div class="txt gold" id="t1">Oye… tengo algo para ti 🤍</div>
-  <div class="txt gold" id="t2">Este ramo de ositos<br>es para ti, mi amor 🌷</div>
+  <div class="txt gold" id="t2">Este ramo de Snoopy<br>es para ti, mi amor ❤️</div>
   <div class="txt gold" id="t3">Eres mi persona favorita</div>
   <div class="txt" id="t4">de esas que se quieren para siempre ✨</div>
   <div class="txt gold" id="sig">JN ♥</div>
@@ -110,7 +110,7 @@
       W = window.innerWidth; H = window.innerHeight;
       cv.width = W * DPR; cv.height = H * DPR;
       g.setTransform(DPR, 0, 0, DPR, 0, 0);
-      SC = Math.min((W / 2 - 14) / 285, H * 0.60 / 560);   // escala global: el ramo siempre cabe
+      SC = Math.min((W / 2 - 14) / 300, H * 0.60 / 560);   // el ramo siempre cabe
     }
     resize();
     addEventListener('resize', resize);
@@ -126,6 +126,7 @@
       if (p < 2.5 / d) return n * (p -= 2.25 / d) * p + .9375;
       return n * (p -= 2.625 / d) * p + .984375;
     };
+    const ell = (x, y, rx, ry) => { g.beginPath(); g.ellipse(x, y, rx, ry, 0, 0, 6.2832); g.fill(); };
 
     /* ------------ fondo: estrellas + brasas ------------ */
     let stars = [], embers = [];
@@ -134,115 +135,114 @@
       for (let i = 0; i < 130; i++)
         stars.push({ x: Math.random(), y: Math.random() * 0.9, r: rnd(.4, 1.4), p: rnd(0, 6.28), v: rnd(.5, 1.6) });
       for (let i = 0; i < 42; i++)
-        embers.push({ x: Math.random(), y: Math.random(), r: rnd(1, 2.6), v: rnd(6, 18), d: rnd(-8, 8), p: rnd(0, 6.28), hue: rnd(20, 42) });
+        embers.push({ x: Math.random(), y: Math.random(), r: rnd(1, 2.6), v: rnd(6, 18), p: rnd(0, 6.28), hue: rnd(348, 366) });
     }
     initBackdrop();
 
-    /* ------------ dibujo: osito ------------ */
-    function drawBear(s, wave, walk) {
-      // origen: centro de los pies. s ≈ radio de cabeza en px
-      const fur = '#b97a56', cream = '#f3dcc0', dark = '#2b1a12';
-      g.save();
-      if (walk) { g.translate(0, Math.sin(walk * 11) * 2.2); g.rotate(Math.sin(walk * 11) * 0.045); }
-      // piernas
-      g.fillStyle = fur;
-      const lo = walk ? Math.sin(walk * 11) * 0.12 * s : 0;
-      ell(-.4 * s, -.16 * s + lo, .3 * s, .24 * s); ell(.4 * s, -.16 * s - lo, .3 * s, .24 * s);
-      g.fillStyle = cream; ell(-.4 * s, -.13 * s + lo, .17 * s, .13 * s); ell(.4 * s, -.13 * s - lo, .17 * s, .13 * s);
-      // cuerpo
-      g.fillStyle = fur; ell(0, -.62 * s, .8 * s, .74 * s);
-      g.fillStyle = cream; ell(0, -.55 * s, .47 * s, .44 * s);
-      // brazo izquierdo (fijo)
-      g.fillStyle = fur; ell(-.76 * s, -.8 * s, .26 * s, .3 * s);
-      // brazo derecho (saluda si wave)
-      g.save();
-      g.translate(.62 * s, -1.0 * s);
-      g.rotate(wave ? -0.9 + Math.sin(wave * 6) * 0.45 : 0.25);
-      ell(.14 * s, .12 * s, .26 * s, .3 * s);
-      g.restore();
-      // orejas
-      ell(-.72 * s, -2.32 * s, .38 * s, .38 * s); ell(.72 * s, -2.32 * s, .38 * s, .38 * s);
-      g.fillStyle = cream; ell(-.72 * s, -2.32 * s, .2 * s, .2 * s); ell(.72 * s, -2.32 * s, .2 * s, .2 * s);
-      // cabeza
-      g.fillStyle = fur; ell(0, -1.6 * s, 1.0 * s, .95 * s);
-      // hocico
-      g.fillStyle = cream; ell(0, -1.32 * s, .5 * s, .38 * s);
-      g.fillStyle = dark; ell(0, -1.45 * s, .13 * s, .1 * s);
-      g.strokeStyle = dark; g.lineWidth = Math.max(1.2, s * .05);
-      g.beginPath(); g.arc(0, -1.28 * s, .14 * s, 0.25, Math.PI - 0.25); g.stroke();
-      // ojos
-      g.fillStyle = dark; ell(-.38 * s, -1.68 * s, .1 * s, .11 * s); ell(.38 * s, -1.68 * s, .1 * s, .11 * s);
-      g.fillStyle = '#fff'; ell(-.35 * s, -1.72 * s, .035 * s, .035 * s); ell(.41 * s, -1.72 * s, .035 * s, .035 * s);
-      // chapitas
-      g.fillStyle = 'rgba(255,120,130,.55)'; ell(-.62 * s, -1.34 * s, .16 * s, .11 * s); ell(.62 * s, -1.34 * s, .16 * s, .11 * s);
-      g.restore();
-    }
+    /* ============ SNOOPY (dibujado a mano en canvas) ============ */
+    const INK = '#141414', SNOW = '#fdfdfd';
 
-    function drawBearHead(s) {
-      const fur = '#b97a56', cream = '#f3dcc0', dark = '#2b1a12';
-      g.fillStyle = fur;
-      ell(-.72 * s, -.72 * s, .38 * s, .38 * s); ell(.72 * s, -.72 * s, .38 * s, .38 * s);
-      g.fillStyle = cream; ell(-.72 * s, -.72 * s, .2 * s, .2 * s); ell(.72 * s, -.72 * s, .2 * s, .2 * s);
-      g.fillStyle = fur; ell(0, 0, 1.0 * s, .95 * s);
-      g.fillStyle = cream; ell(0, .28 * s, .5 * s, .38 * s);
-      g.fillStyle = dark; ell(0, .15 * s, .13 * s, .1 * s);
-      ell(-.38 * s, -.08 * s, .1 * s, .11 * s); ell(.38 * s, -.08 * s, .1 * s, .11 * s);
-      g.fillStyle = '#fff'; ell(-.35 * s, -.12 * s, .035 * s, .035 * s); ell(.41 * s, -.12 * s, .035 * s, .035 * s);
-      g.fillStyle = 'rgba(255,120,130,.55)'; ell(-.62 * s, .26 * s, .16 * s, .11 * s); ell(.62 * s, .26 * s, .16 * s, .11 * s);
-    }
-
-    function ell(x, y, rx, ry) { g.beginPath(); g.ellipse(x, y, rx, ry, 0, 0, 6.2832); g.fill(); }
-
-    /* ------------ dibujo: tulipán ------------ */
-    const TULIP_COLS = ['#e63950', '#ff6b81', '#d62839', '#ff8fa3', '#f2545b'];
-    function drawTulip(s, col, stemLen) {
-      // origen en la base del tallo, flor hacia arriba
-      if (stemLen > 0) {
-        g.strokeStyle = '#3e7d3a'; g.lineWidth = Math.max(1.5, s * .16);
-        g.beginPath(); g.moveTo(0, 0); g.quadraticCurveTo(s * .3, -stemLen * .5, 0, -stemLen); g.stroke();
-        g.fillStyle = '#4caf50';
-        g.save(); g.translate(s * .12, -stemLen * .45); g.rotate(.7);
-        g.beginPath(); g.ellipse(0, 0, s * .55, s * .18, 0, 0, 6.2832); g.fill(); g.restore();
-      }
-      g.save(); g.translate(0, -stemLen);
-      const grad = g.createLinearGradient(0, -s * 1.4, 0, 0);
-      grad.addColorStop(0, col); grad.addColorStop(1, shade(col, -28));
-      g.fillStyle = grad;
-      // pétalos laterales
-      petal(-s * .42, 0, s * .5, s * 1.15, -.22);
-      petal(s * .42, 0, s * .5, s * 1.15, .22);
-      // pétalo central
-      g.fillStyle = col;
-      petal(0, -s * .06, s * .52, s * 1.25, 0);
-      // brillo
-      g.fillStyle = 'rgba(255,255,255,.18)';
-      petal(-s * .12, -s * .15, s * .16, s * .8, -.1);
-      g.restore();
-    }
-    function petal(x, y, rx, ry, rot) {
-      g.save(); g.translate(x, y); g.rotate(rot);
+    function heartPath(r) {
       g.beginPath();
-      g.moveTo(0, 0);
-      g.bezierCurveTo(-rx, -ry * .25, -rx * .75, -ry, 0, -ry);
-      g.bezierCurveTo(rx * .75, -ry, rx, -ry * .25, 0, 0);
-      g.fill(); g.restore();
+      g.moveTo(0, r * 0.80);
+      g.bezierCurveTo(-r * 1.38, -r * 0.18, -r * 0.52, -r * 1.10, 0, -r * 0.42);
+      g.bezierCurveTo(r * 0.52, -r * 1.10, r * 1.38, -r * 0.18, 0, r * 0.80);
+      g.closePath();
     }
-    function shade(hex, amt) {
-      const n = parseInt(hex.slice(1), 16);
-      const r = clamp((n >> 16) + amt, 0, 255), gr = clamp(((n >> 8) & 255) + amt, 0, 255), b = clamp((n & 255) + amt, 0, 255);
-      return `rgb(${r},${gr},${b})`;
+    function drawHeart(r, out) {
+      if (out) { g.fillStyle = INK; g.save(); g.scale(1 + out, 1 + out); heartPath(r); g.fill(); g.restore(); }
+      const gr = g.createLinearGradient(-r, -r, r * .6, r);
+      gr.addColorStop(0, '#ff4a4a'); gr.addColorStop(.55, '#e01b24'); gr.addColorStop(1, '#a5121a');
+      g.fillStyle = gr; heartPath(r); g.fill();
+      g.fillStyle = 'rgba(255,255,255,.28)';
+      g.beginPath(); g.ellipse(-r * .44, -r * .36, r * .19, r * .30, -.5, 0, 6.2832); g.fill();
     }
 
-    /* ------------ ramo: slots ------------ */
+    // cabeza clásica: cráneo + hocico a la izquierda, oreja negra colgando a la derecha
+    function drawSnoopyHead(s) {
+      const k = s * 0.10;
+      const blob = e => {
+        g.beginPath();
+        g.ellipse(0, 0, s + e, s * 0.93 + e, 0, 0, 6.2832);
+        g.ellipse(-s * 0.84, s * 0.30, s * 0.62 + e, s * 0.40 + e, -0.13, 0, 6.2832);
+        g.fill();
+      };
+      g.fillStyle = INK; blob(k);
+      g.fillStyle = SNOW; blob(0);
+      // oreja negra floppy
+      g.save(); g.translate(s * 0.60, s * 0.30); g.rotate(-0.30);
+      g.fillStyle = INK; ell(0, 0, s * 0.35, s * 0.64);
+      g.restore();
+      // nariz
+      g.fillStyle = INK;
+      g.beginPath(); g.ellipse(-s * 1.33, s * 0.18, s * 0.20, s * 0.17, -0.2, 0, 6.2832); g.fill();
+      // ojo
+      g.beginPath(); g.ellipse(-s * 0.26, -s * 0.14, s * 0.11, s * 0.15, 0, 0, 6.2832); g.fill();
+      // sonrisa
+      g.strokeStyle = INK; g.lineWidth = Math.max(1, s * 0.075); g.lineCap = 'round';
+      g.beginPath(); g.arc(-s * 0.78, s * 0.30, s * 0.36, 0.05, 1.45); g.stroke();
+    }
+
+    // Snoopy de pie, abraza un corazón. origen = suelo. lift 0..1 alza el corazón
+    function drawSnoopy(s, lift, walk) {
+      const bob = walk ? Math.sin(walk * 11) * s * 0.05 : 0;
+      const lo = walk ? Math.sin(walk * 11) * 0.13 * s : 0;
+      g.save(); g.translate(0, bob);
+      // patas
+      g.fillStyle = INK; ell(-0.34 * s, -0.13 * s + lo, 0.27 * s, 0.21 * s); ell(0.34 * s, -0.13 * s - lo, 0.27 * s, 0.21 * s);
+      g.fillStyle = SNOW; ell(-0.34 * s, -0.14 * s + lo, 0.22 * s, 0.16 * s); ell(0.34 * s, -0.14 * s - lo, 0.22 * s, 0.16 * s);
+      // cuerpo
+      g.fillStyle = INK; ell(0, -0.74 * s, 0.62 * s, 0.68 * s);
+      g.fillStyle = SNOW; ell(0, -0.74 * s, 0.56 * s, 0.62 * s);
+      // manchita negra del lomo
+      g.fillStyle = INK;
+      g.save(); g.translate(0.26 * s, -1.05 * s); g.rotate(-0.45); ell(0, 0, 0.28 * s, 0.19 * s); g.restore();
+      // cabeza
+      g.save(); g.translate(0, -1.98 * s); drawSnoopyHead(0.93 * s); g.restore();
+      // corazón + bracitos (al frente)
+      const hy = -0.80 * s - lift * 2.15 * s;
+      const hr = 0.54 * s * (1 + lift * 0.45);
+      g.save(); g.translate(0, hy); drawHeart(hr, 0.11); g.restore();
+      const ay = hy + hr * 0.15, ax = hr * 1.02;
+      g.fillStyle = INK; ell(-ax, ay, 0.20 * s, 0.15 * s); ell(ax, ay, 0.20 * s, 0.15 * s);
+      g.fillStyle = SNOW; ell(-ax, ay, 0.16 * s, 0.115 * s); ell(ax, ay, 0.16 * s, 0.115 * s);
+      g.restore();
+    }
+
+    // Snoopy sentado abrazando un corazón grande. origen = suelo
+    function drawSnoopySit(s, pulse) {
+      // pies al frente
+      g.fillStyle = INK; ell(-0.31 * s, -0.15 * s, 0.31 * s, 0.21 * s); ell(0.31 * s, -0.15 * s, 0.31 * s, 0.21 * s);
+      g.fillStyle = SNOW; ell(-0.31 * s, -0.16 * s, 0.26 * s, 0.17 * s); ell(0.31 * s, -0.16 * s, 0.26 * s, 0.17 * s);
+      g.strokeStyle = INK; g.lineWidth = Math.max(.7, s * .028);
+      for (let side = -1; side <= 1; side += 2)
+        for (let i = -1; i <= 1; i++) {
+          g.beginPath(); g.moveTo(side * 0.31 * s + i * 0.085 * s, -0.27 * s);
+          g.lineTo(side * 0.31 * s + i * 0.085 * s, -0.07 * s); g.stroke();
+        }
+      // cuerpo
+      g.fillStyle = INK; ell(0, -0.64 * s, 0.58 * s, 0.58 * s);
+      g.fillStyle = SNOW; ell(0, -0.64 * s, 0.52 * s, 0.52 * s);
+      // cabeza
+      g.save(); g.translate(0, -1.70 * s); drawSnoopyHead(0.95 * s); g.restore();
+      // corazón grande al frente
+      const p = 1 + Math.sin(pulse * 3) * 0.045;
+      g.save(); g.translate(0, -0.74 * s); g.scale(p, p); drawHeart(0.70 * s, 0.10); g.restore();
+      // manos abrazando
+      g.fillStyle = INK; ell(-0.70 * s, -0.66 * s, 0.22 * s, 0.17 * s); ell(0.70 * s, -0.66 * s, 0.22 * s, 0.17 * s);
+      g.fillStyle = SNOW; ell(-0.70 * s, -0.66 * s, 0.18 * s, 0.13 * s); ell(0.70 * s, -0.66 * s, 0.18 * s, 0.13 * s);
+    }
+
+    /* ------------ ramo ------------ */
     let items = [], gyps = [];
     function buildBouquet() {
       items = []; gyps = [];
       const rows = [
-        { n: 6,  r: 118, size: 30, type: 'tulip' },
-        { n: 7,  r: 168, size: 27, type: 'bear'  },
-        { n: 8,  r: 205, size: 26, type: 'tulip' },
-        { n: 9,  r: 252, size: 24, type: 'bear'  },
-        { n: 10, r: 288, size: 23, type: 'tulip' },
+        { n: 5,  r: 112, size: 30, type: 'snoopy' },
+        { n: 7,  r: 165, size: 27, type: 'heart'  },
+        { n: 8,  r: 205, size: 26, type: 'snoopy' },
+        { n: 9,  r: 252, size: 24, type: 'heart'  },
+        { n: 10, r: 290, size: 23, type: 'snoopy' },
       ];
       let idx = 0;
       rows.forEach((row, ri) => {
@@ -252,34 +252,31 @@
             type: row.type,
             tx: Math.cos(a) * row.r, ty: Math.sin(a) * row.r,
             ang: a + Math.PI / 2,
-            s: row.size * rnd(.9, 1.1),
-            col: TULIP_COLS[(idx * 3) % TULIP_COLS.length],
+            s: row.size * rnd(.92, 1.08),
             row: ri,
-            rainX: rnd(.06, .94), floorY: rnd(.5, .88),
+            rainX: rnd(.07, .93), floorY: rnd(.5, .86),
             birth: 10 + rnd(0, 1.3),
-            fly: 12.6 + idx * 0.033,
+            fly: 12.6 + idx * 0.034,
             jig: rnd(0, 6.28),
           });
           idx++;
         }
       });
-      // ordenar: filas externas primero (se dibujan atrás)
       items.sort((a, b) => b.row - a.row);
-      // gypsophila (florecitas blancas)
       for (let i = 0; i < 55; i++) {
-        const a = (-90 + rnd(-64, 64)) * Math.PI / 180, r = rnd(100, 300);
+        const a = (-90 + rnd(-64, 64)) * Math.PI / 180, r = rnd(100, 305);
         gyps.push({ x: Math.cos(a) * r, y: Math.sin(a) * r, s: rnd(1.6, 3.4), p: rnd(0, 6.28) });
       }
     }
     buildBouquet();
 
-    /* ------------ corazones (burst + flotantes) ------------ */
+    /* ------------ corazones ------------ */
     let bursts = [], floaters = [];
     const HEARTS = ['💗', '💖', '❤️', '🩷', '💕'];
     function burst(x, y, n) {
       for (let i = 0; i < n; i++) {
         const a = rnd(0, 6.28), v = rnd(60, 240);
-        bursts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 60, e: HEARTS[(Math.random() * HEARTS.length) | 0], s: rnd(13, 26), life: 1, rot: rnd(-2, 2) });
+        bursts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 60, e: HEARTS[(Math.random() * HEARTS.length) | 0], s: rnd(13, 26), life: 1 });
       }
     }
 
@@ -301,7 +298,6 @@
       buildBouquet(); initBackdrop();
       bursts = []; floaters = [];
     });
-
     addEventListener('pointerdown', e => burst(e.clientX, e.clientY, 15));
 
     let lastFloat = 0, lastFrame = performance.now();
@@ -312,91 +308,72 @@
       const t = (now - t0) / 1000;
       updateTexts(t);
 
-      /* fondo */
       const bg = g.createLinearGradient(0, 0, 0, H);
       bg.addColorStop(0, '#0a0512'); bg.addColorStop(.55, '#1a0b18'); bg.addColorStop(1, '#341022');
       g.fillStyle = bg; g.fillRect(0, 0, W, H);
-      // resplandor cálido inferior
       const gl = g.createRadialGradient(W / 2, H * 1.05, 10, W / 2, H * 1.05, H * .85);
-      gl.addColorStop(0, 'rgba(255,120,80,.22)'); gl.addColorStop(1, 'rgba(255,120,80,0)');
+      gl.addColorStop(0, 'rgba(255,90,90,.22)'); gl.addColorStop(1, 'rgba(255,90,90,0)');
       g.fillStyle = gl; g.fillRect(0, 0, W, H);
-      // estrellas
       stars.forEach(st => {
         const tw = .35 + .65 * (0.5 + 0.5 * Math.sin(now / 700 * st.v + st.p));
         g.fillStyle = `rgba(255,240,215,${(tw * .8).toFixed(3)})`;
         g.beginPath(); g.arc(st.x * W, st.y * H, st.r * tw, 0, 6.2832); g.fill();
       });
-      // brasas doradas subiendo
       embers.forEach(em => {
         em.y -= em.v * dt / H; em.x += Math.sin(now / 1300 + em.p) * .00035;
         if (em.y < -0.02) { em.y = 1.02; em.x = Math.random(); }
         const a = .25 + .3 * (0.5 + 0.5 * Math.sin(now / 500 + em.p));
-        g.fillStyle = `hsla(${em.hue},95%,64%,${a.toFixed(3)})`;
+        g.fillStyle = `hsla(${em.hue},92%,65%,${a.toFixed(3)})`;
         g.beginPath(); g.arc(em.x * W, em.y * H, em.r, 0, 6.2832); g.fill();
       });
 
-      const cx = W / 2, oy = H * 0.66;   // origen del ramo (cuello del envoltorio)
+      const cx = W / 2, oy = H * 0.66;
       const sway = t > 15.5 ? Math.sin(now / 1400) * 0.028 : 0;
 
-      /* --- FASE osito caminando (3.5s → 10s) --- */
+      /* --- Snoopy entra caminando con su corazón --- */
       if (t >= 3.2 && t < 10.3) {
         const wp = clamp((t - 3.5) / 3.2, 0, 1);
         const bx = -80 + (cx + 80) * easeIO(wp);
-        const by = H * 0.72;
-        const bs = 46 * SC * 1.35;
-        const walking = wp < 1 ? t : 0;
-        g.save(); g.translate(bx, by);
-        drawBear(bs, 0, walking);
-        // tulipán en la pata (se alza al final)
-        const lift = clamp((t - 9.3) / 0.8, 0, 1);
-        g.save();
-        g.translate(.72 * bs, -1.05 * bs);
-        g.rotate(0.5 - lift * 1.15);
-        drawTulip(bs * .34, '#e63950', bs * .95);
-        g.restore();
+        const bs = 42 * SC * 1.35;
+        g.save(); g.translate(bx, H * 0.72);
+        drawSnoopy(bs, clamp((t - 9.2) / 0.9, 0, 1), wp < 1 ? t : 0);
         g.restore();
       }
 
-      /* --- FLASH del estallido (10s) --- */
+      /* --- flash --- */
       if (t >= 10 && t < 10.9) {
         const f = 1 - (t - 10) / 0.9;
-        g.fillStyle = `rgba(255,225,190,${(f * f * .9).toFixed(3)})`;
+        g.fillStyle = `rgba(255,220,220,${(f * f * .9).toFixed(3)})`;
         g.fillRect(0, 0, W, H);
         if (bursts.length < 30 && t < 10.15) burst(cx, H * 0.55, 26);
       }
 
-      /* --- lluvia + vuelo + ramo (t ≥ 10) --- */
+      /* --- lluvia + vuelo + ramo --- */
       if (t >= 10) {
-        // envoltorio (aparece 12.8s)
         const ws = easeOut(clamp((t - 12.8) / 1.1, 0, 1));
-        g.save(); g.translate(cx, oy); g.rotate(sway); g.scale(SC, SC);
         if (ws > 0) {
-          g.save(); g.scale(ws, ws);
-          // cono trasero
+          g.save(); g.translate(cx, oy); g.rotate(sway); g.scale(SC * ws, SC * ws);
           const wg = g.createLinearGradient(-170, -60, 170, 60);
           wg.addColorStop(0, '#8e2440'); wg.addColorStop(.5, '#c13a5c'); wg.addColorStop(1, '#8e2440');
           g.fillStyle = wg;
-          g.beginPath(); g.moveTo(0, 168);
-          g.quadraticCurveTo(-150, 40, -190, -78);
-          g.quadraticCurveTo(0, -18, 190, -78);
-          g.quadraticCurveTo(150, 40, 0, 168);
+          g.beginPath(); g.moveTo(0, 150);
+          g.quadraticCurveTo(-128, 30, -168, -70);
+          g.quadraticCurveTo(0, -14, 168, -70);
+          g.quadraticCurveTo(128, 30, 0, 150);
           g.fill();
           g.strokeStyle = 'rgba(255,210,130,.7)'; g.lineWidth = 1.4; g.stroke();
           g.restore();
         }
-        g.restore();
 
-        // tallos de flores ya colocadas
+        // tallos
         g.save(); g.translate(cx, oy); g.rotate(sway); g.scale(SC, SC);
+        g.strokeStyle = 'rgba(62,125,58,.9)'; g.lineWidth = 2.6;
         items.forEach(it => {
-          if (t >= it.fly + 1.15) {
-            g.strokeStyle = 'rgba(62,125,58,.9)'; g.lineWidth = 2.6;
-            g.beginPath(); g.moveTo(it.tx * .18, 30); g.lineTo(it.tx, it.ty); g.stroke();
-          }
+          if (t >= it.fly + 1.15) { g.beginPath(); g.moveTo(it.tx * .18, 30); g.lineTo(it.tx, it.ty); g.stroke(); }
         });
         g.restore();
 
-        // ítems (ositos y tulipanes)
+        // ítems
         items.forEach(it => {
           if (t < it.birth) return;
           let x, y, rot = 0, mode;
@@ -407,24 +384,23 @@
             rot = Math.sin(now / 500 + it.jig) * .15; mode = 'free';
           } else {
             const p = easeIO(clamp((t - it.fly) / 1.15, 0, 1));
-            // destino en coords de mundo (con vaivén)
             const ca = Math.cos(sway), sa = Math.sin(sway);
             const wx = cx + (it.tx * ca - it.ty * sa) * SC;
             const wy = oy + (it.tx * sa + it.ty * ca) * SC;
-            const mx = (rx + wx) / 2, my = Math.min(ry, wy) - 90;
-            const q = 1 - p;
+            const mx = (rx + wx) / 2, my = Math.min(ry, wy) - 90, q = 1 - p;
             x = q * q * rx + 2 * q * p * mx + p * p * wx;
             y = q * q * ry + 2 * q * p * my + p * p * wy;
-            rot = (it.ang + sway) * p;
-            mode = p >= 1 ? 'set' : 'fly';
+            // los Snoopy se quedan casi derechitos para que se les vea la carita
+            const fan = it.type === 'snoopy' ? 0.22 : 0.5;
+            rot = (it.ang * fan + sway) * p; mode = p >= 1 ? 'set' : 'fly';
           }
           g.save(); g.translate(x, y); g.rotate(rot); g.scale(SC, SC);
-          if (it.type === 'tulip') drawTulip(it.s, it.col, mode === 'set' ? 0 : it.s * .7);
-          else { g.translate(0, -it.s * .2); drawBearHead(it.s); }
+          if (it.type === 'heart') drawHeart(it.s * 0.95, 0.10);
+          else drawSnoopyHead(it.s * 0.92);
           g.restore();
         });
 
-        // gypsophila brillante
+        // gypsophila
         const ga = clamp((t - 15) / 1.4, 0, 1);
         if (ga > 0) {
           g.save(); g.translate(cx, oy); g.rotate(sway); g.scale(SC, SC);
@@ -442,35 +418,32 @@
           g.fillStyle = '#e8b34b';
           g.beginPath(); g.ellipse(-26, 0, 24, 13, -.35, 0, 6.2832); g.fill();
           g.beginPath(); g.ellipse(26, 0, 24, 13, .35, 0, 6.2832); g.fill();
-          g.fillStyle = '#f9e0a2';
-          g.beginPath(); g.ellipse(0, 0, 10, 10, 0, 0, 6.2832); g.fill();
+          g.fillStyle = '#f9e0a2'; g.beginPath(); g.ellipse(0, 0, 10, 10, 0, 0, 6.2832); g.fill();
           g.strokeStyle = '#e8b34b'; g.lineWidth = 5; g.lineCap = 'round';
           g.beginPath(); g.moveTo(-6, 8); g.quadraticCurveTo(-16, 42, -8, 66); g.stroke();
           g.beginPath(); g.moveTo(6, 8); g.quadraticCurveTo(18, 40, 10, 62); g.stroke();
           g.restore();
         }
 
-        // osito principal saludando junto al ramo
+        // Snoopy sentado abrazando el corazón, junto al ramo
         if (t >= 12.2) {
           const ap = easeOut(clamp((t - 12.2) / 1.2, 0, 1));
-          const bs = 34 * SC * 1.3;
           g.save();
-          g.translate(cx - 235 * SC * ap - (1 - ap) * 60, H * 0.76);
+          g.translate(Math.max(cx - 250 * SC, 62 * SC + 26) * ap + (1 - ap) * -60, H * 0.87);
           g.globalAlpha = ap;
-          drawBear(bs, t > 15 ? t : 0, 0);
+          drawSnoopySit(40 * SC * 1.3, t);
           g.globalAlpha = 1;
           g.restore();
         }
 
-        // corazones flotando desde el ramo
         if (t > 16.5 && now - lastFloat > 420) {
           lastFloat = now;
           floaters.push({ x: cx + rnd(-140, 140) * SC, y: oy - rnd(80, 260) * SC, vy: rnd(24, 46), e: HEARTS[(Math.random() * HEARTS.length) | 0], s: rnd(12, 22), life: 1 });
         }
       }
 
-      /* partículas de corazones */
-      floaters = floaters.filter(get => get.life > 0);
+      /* partículas */
+      floaters = floaters.filter(f => f.life > 0);
       floaters.forEach(f => {
         f.y -= f.vy * dt; f.life -= dt * .28;
         g.globalAlpha = clamp(f.life, 0, 1);
@@ -487,7 +460,6 @@
         g.globalAlpha = 1;
       });
 
-      /* viñeta */
       const vg = g.createRadialGradient(W / 2, H / 2, Math.min(W, H) * .35, W / 2, H / 2, Math.max(W, H) * .75);
       vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,.42)');
       g.fillStyle = vg; g.fillRect(0, 0, W, H);
